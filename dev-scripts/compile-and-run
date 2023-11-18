@@ -10,7 +10,7 @@ set -u
 set -x
 
 readonly BIN_PATH='./bin/example'
-readonly CC='gcc'
+readonly CC='zig cc'
 
 "${CC}" arithmetic.c main.c -o "${BIN_PATH}"
 
