@@ -22,7 +22,7 @@ pub fn build(b: *std.Build) void {
     });
     arithmetic.linkLibC();
     arithmetic.addCSourceFiles(&.{
-        "arithmetic.c",
+        "c-src/arithmetic.c",
     }, &.{
         "-Wall",
         "-W",
@@ -30,7 +30,6 @@ pub fn build(b: *std.Build) void {
         "-Wwrite-strings",
         "-Wno-missing-field-initializers",
     });
-    arithmetic.addIncludePath(.{ .path = "c-src" });
 
     const exe = b.addExecutable(.{
         .name = "zig-c-simple",
@@ -39,6 +38,7 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     exe.linkLibrary(arithmetic);
+    exe.addIncludePath(.{ .path = "c-src" });
 
     // This declares intent for the executable to be installed into the
     // standard location when the user invokes the "install" step (the default
@@ -75,6 +75,8 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    unit_tests.linkLibrary(arithmetic);
+    unit_tests.addIncludePath(.{ .path = "c-src" });
 
     const run_unit_tests = b.addRunArtifact(unit_tests);
 

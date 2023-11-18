@@ -1,4 +1,5 @@
 const std = @import("std");
+
 const arithmetic = @cImport({
     @cInclude("arithmetic.h");
 });
