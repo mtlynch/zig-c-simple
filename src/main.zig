@@ -1,8 +1,10 @@
 const std = @import("std");
+const arithmetic = @cImport({
+    @cInclude("arithmetic.h");
+});
 
 fn add(x: i32, y: i32) i32 {
-    // TODO: Instead of reimplementing this in Zig, call the C version.
-    return x + y;
+    return arithmetic.add(x, y);
 }
 
 pub fn main() !void {

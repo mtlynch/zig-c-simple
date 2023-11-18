@@ -15,12 +15,30 @@ pub fn build(b: *std.Build) void {
     // set a preferred release mode, allowing the user to decide how to optimize.
     const optimize = b.standardOptimizeOption(.{});
 
+    const arithmetic = b.addStaticLibrary(.{
+        .name = "arithmetic",
+        .target = target,
+        .optimize = optimize,
+    });
+    arithmetic.linkLibC();
+    arithmetic.addCSourceFiles(&.{
+        "arithmetic.c",
+    }, &.{
+        "-Wall",
+        "-W",
+        "-Wstrict-prototypes",
+        "-Wwrite-strings",
+        "-Wno-missing-field-initializers",
+    });
+    arithmetic.addIncludePath(.{ .path = "c-src" });
+
     const exe = b.addExecutable(.{
         .name = "zig-c-simple",
         .root_source_file = .{ .path = "src/main.zig" },
         .target = target,
         .optimize = optimize,
     });
+    exe.linkLibrary(arithmetic);
 
     // This declares intent for the executable to be installed into the
     // standard location when the user invokes the "install" step (the default
