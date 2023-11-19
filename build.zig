@@ -20,16 +20,9 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-    arithmetic.linkLibC();
     arithmetic.addCSourceFiles(&.{
         "c-src/arithmetic.c",
-    }, &.{
-        "-Wall",
-        "-W",
-        "-Wstrict-prototypes",
-        "-Wwrite-strings",
-        "-Wno-missing-field-initializers",
-    });
+    }, &.{});
 
     const exe = b.addExecutable(.{
         .name = "zig-c-simple",
