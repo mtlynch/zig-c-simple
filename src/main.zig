@@ -17,7 +17,7 @@ pub fn main() !void {
     var bw = std.io.bufferedWriter(stdout_file);
     const stdout = bw.writer();
 
-    try stdout.print("{d} + {d} = {d}.\n", .{ x, y, z });
+    try stdout.print("{d} + {d} = {d}\n", .{ x, y, z });
     try bw.flush();
 }
 
