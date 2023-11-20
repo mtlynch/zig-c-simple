@@ -21,8 +21,12 @@ pub fn main() !void {
     try bw.flush();
 }
 
-test "simple test" {
+test "test add" {
     const x: i32 = 5;
     const y: i32 = 16;
     try std.testing.expectEqual(@as(i32, 21), add(x, y));
+}
+
+test "test increment" {
+    try std.testing.expectEqual(@as(i32, 6), arithmetic.increment(5));
 }
