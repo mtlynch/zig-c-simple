@@ -15,22 +15,12 @@ pub fn build(b: *std.Build) void {
     // set a preferred release mode, allowing the user to decide how to optimize.
     const optimize = b.standardOptimizeOption(.{});
 
-    const arithmetic = b.addStaticLibrary(.{
-        .name = "arithmetic",
-        .target = target,
-        .optimize = optimize,
-    });
-    arithmetic.addCSourceFiles(&.{
-        "c-src/arithmetic.c",
-    }, &.{});
-
     const exe = b.addExecutable(.{
         .name = "zig-c-simple",
         .root_source_file = .{ .path = "src/main.zig" },
         .target = target,
         .optimize = optimize,
     });
-    exe.linkLibrary(arithmetic);
     exe.addIncludePath(.{ .path = "c-src" });
 
     // This declares intent for the executable to be installed into the
@@ -68,7 +58,6 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-    unit_tests.linkLibrary(arithmetic);
     unit_tests.addIncludePath(.{ .path = "c-src" });
 
     const run_unit_tests = b.addRunArtifact(unit_tests);
