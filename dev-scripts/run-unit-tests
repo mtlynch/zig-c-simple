@@ -9,4 +9,4 @@ set -u
 # Echo commands before executing them, by default to stderr.
 set -x
 
-zig build test
+zig build test --summary all
