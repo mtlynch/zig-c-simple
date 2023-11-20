@@ -21,8 +21,6 @@ pub fn main() !void {
     try bw.flush();
 }
 
-test "simple test" {
-    const x: i32 = 5;
-    const y: i32 = 16;
-    try std.testing.expectEqual(@as(i32, 21), add(x, y));
+test "test add" {
+    try std.testing.expectEqual(@as(i32, 21), add(5, 16));
 }
