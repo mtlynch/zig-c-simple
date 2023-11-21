@@ -15,13 +15,23 @@ pub fn build(b: *std.Build) void {
     // set a preferred release mode, allowing the user to decide how to optimize.
     const optimize = b.standardOptimizeOption(.{});
 
+    const arithmetic = b.addStaticLibrary(.{
+        .name = "arithmetic",
+        .target = target,
+        .optimize = optimize,
+    });
+    arithmetic.addCSourceFiles(&.{
+        "c-src/arithmetic.c",
+    }, &.{});
+
     const exe = b.addExecutable(.{
         .name = "zig-c-simple",
         .root_source_file = .{ .path = "src/main.zig" },
         .target = target,
         .optimize = optimize,
     });
-    exe.addIncludePath(.{ .path = "c-src" });
+    exe.linkLibrary(arithmetic); // Link against C library
+    exe.addIncludePath(.{ .path = "c-src" }); // Look for C header files
 
     // This declares intent for the executable to be installed into the
     // standard location when the user invokes the "install" step (the default
@@ -58,7 +68,8 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-    unit_tests.addIncludePath(.{ .path = "c-src" });
+    unit_tests.linkLibrary(arithmetic); // Link against C library
+    unit_tests.addIncludePath(.{ .path = "c-src" }); // Look for C header files
 
     const run_unit_tests = b.addRunArtifact(unit_tests);
 
