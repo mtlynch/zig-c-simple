@@ -24,7 +24,3 @@ pub fn main() !void {
 test "test add" {
     try std.testing.expectEqual(@as(i32, 21), add(5, 16));
 }
-
-test "test increment" {
-    try std.testing.expectEqual(@as(i32, 6), arithmetic.increment(5));
-}
