@@ -1,7 +1,7 @@
 const std = @import("std");
 
 const arithmetic = @cImport({
-    @cInclude("arithmetic.h");
+    @cInclude("arithmetic.c");
 });
 
 fn add(x: i32, y: i32) i32 {
