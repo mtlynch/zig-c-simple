@@ -1,2 +1,13 @@
-bin/
-zig-cache/
+/bin/
+/include/
+/lib/
+/obj/
+
+/.direnv
+
+# Nix build output
+/result
+
+/zig-cache/
+/.zig-cache/
+/zig-out/
