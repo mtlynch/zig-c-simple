@@ -10,7 +10,7 @@ This repo shows a simple example of calling into C code from a Zig application. 
 
 ## Requirements
 
-* Zig 0.11.0
+* Zig 0.14.0
 
 This code has been tested on Debian 11.
 
